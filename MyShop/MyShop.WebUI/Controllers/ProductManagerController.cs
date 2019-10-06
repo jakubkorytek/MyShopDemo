@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyShop.Core.Contracts;
 using MyShop.Core.Models;
 using MyShop.Core.ViewModels;
-using MyShop.DataAccess.InMemory;
 
 namespace MyShop.WebUI.Controllers
 {
@@ -36,7 +36,7 @@ namespace MyShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ProductManagerViewModel viewModel)
+        public ActionResult Create(ProductManagerViewModel viewModel, HttpPostedFile file)
         {
             if (!ModelState.IsValid)
             {
@@ -44,6 +44,12 @@ namespace MyShop.WebUI.Controllers
             }
             else
             {
+                if(file != null)
+                {
+                    viewModel.product.Image = viewModel.product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//" + viewModel.product.Image));
+                }
+
                 context.Insert(viewModel.product);
                 context.Commit();
 
@@ -68,7 +74,7 @@ namespace MyShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ProductManagerViewModel viewModel, string Id)
+        public ActionResult Edit(ProductManagerViewModel viewModel, string Id, HttpPostedFile file)
         {
             Product productToEdit = context.Find(Id);
             if (productToEdit == null)
@@ -82,9 +88,14 @@ namespace MyShop.WebUI.Controllers
                     return View(viewModel);
                 }
 
+                if (file != null)
+                {
+                    viewModel.product.Image = viewModel.product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//" + viewModel.product.Image));
+                }
+
                 productToEdit.Category = viewModel.product.Category;
                 productToEdit.Description = viewModel.product.Description;
-                productToEdit.Image = viewModel.product.Image;
                 productToEdit.Name = viewModel.product.Name;
                 productToEdit.Price = viewModel.product.Price;
 
