@@ -1,1 +1,27 @@
 71ssmaga@gmail.com
+ASP.Net - jakiś mvc
+
+Strona główna funkcjonalności
+-informacje - opis strony, systemu, co robi system oraz kontakt
+-Rejestracja/logowanie
+-Rejestr osób -> Rejestr
+
+Rejestr
+-lista osób zaginionych (imie, nazwisko, wiek, lokalizacja)
+-filtrowanie danych (płeć, lokalizacja)
+-szczegóły osoby
+
+Szczegóły:
+-zdjęcie, opis, znaki szczególne
+
+Rejestracja:
+-formularz
+
+Grupy użytkownikow:
+-niezalogowany - może tylko przeglądać rejestr
+-zalogowany - dodawanie do rejestru nowe osoby (po rejestracji musi zostać zatwierdzony)
+-admin - zarządza użytkownikami systemu(dodawanie, blokowanie), zarządza wpisamy do rejestru
+
+Entity Framework -> code first
+
+Termin 15.05.2020
